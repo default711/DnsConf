@@ -34,6 +34,11 @@ public class NextDnsRateLimitedApiProcessor {
                 } else {
                     Log.progress("Current success progress: " + ++successCounter + "/" + requestList.size());
                     waveCounter++;
+                    try {
+                        Thread.sleep(1500); // Задержка в 1.5 секунды между запросами
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                 }
             } catch (DnsHttpError e) {
                 if (e.getCode() == 524 || e.getCode() == 429) {
